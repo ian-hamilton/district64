@@ -1,0 +1,136 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="district.master.cs" Inherits="district" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link href="App_Themes/district64/default.css" rel="stylesheet" type="text/css" />
+    <link rel="SHORTCUT ICON" href="http://www.district64.com/district64/images/aa.ico"/>
+    <link rel="alternate" type="application/rss+xml" title="AA District 64" href="/district64/rss.aspx"/>
+    <title>Alcoholics Anonymous Aurora, IL AA District 64</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body id="top">
+    <form id="form1" runat="server">
+    <div id="wrapper">
+        <div class="header">
+            <h1>
+                <span><a href="">District<span id="color">64</span></a>&nbsp;</span>
+            </h1>
+            <p id="about">
+                Alcoholics Anonymous
+            </p>
+            <br />
+            <a href="#skip-menu" class="hidden">Skip menu</a>
+            <!-- Skip menu -->
+            <img class="logo" src="/district64/images/aa.png" alt="AA" />
+            <div class="statement">
+                Has drinking become a problem?<br />
+                Call: 630-859-2444</div>
+            <div class="rss">
+                <a href="/district64/rss.aspx">
+                    <img src="/district64/images/rss.jpg" width="24" height="24" alt="rss" /></a></div>
+            <div id="menu-box">
+              24 Hour Hot-Line Number (630)859-2444
+            </div>
+        </div>
+        <!-- Header end -->
+        <hr class="noscreen" />
+        <div id="skip-menu">
+        </div>
+        <div class="page">
+            <div class="col-r">
+                <div class="col-r-in">
+                    <hr class="noscreen" />
+                    <hr class="noscreen" />
+                    <asp:ScriptManager ID="ScriptManagerMaster" runat="server">
+                    </asp:ScriptManager>
+                    <div>
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+            </div>
+            <!-- Right column end -->
+            <hr class="noscreen" />
+            <div class="col-l">
+                <div class="col-l-in">
+                    <h3>
+                        Site Links</h3>
+                    <ul class="menu">
+                        <li><a href="/district64/Default.aspx">Home</a></li>
+                        <li><a href="/district64/schedule/schedule.aspx">Meeting Schedule</a></li>
+                        <li><a href="/district64/event/eventlist.aspx">Event Activities</a></li>
+                        <li><a href="/district64/event/eventcalender.aspx">Event Calendar</a></li>
+                        <li><asp:LinkButton ID="LinkButtonArchive" runat="server" 
+                                onclick="LinkButtonArchive_Click">Digital Archive</asp:LinkButton></li> 
+                    </ul>
+                    <h3>
+                        Resource Links</h3>
+                    <ul class="menu">
+                        <li><a href="http://www.aa.org/" target="_blank">Alcoholics Anonymous</a></li>
+                        <li><a href="http://aa-nia.org/" target="_blank">NIA 20</a></li>
+                        <li><a href="http://www.aa-nia.org/meetings.html" target="_blank">NIA Districts</a></li>
+                        <li><a href="http://www.aagrapevine.org/" target="_blank">Grapevine</a></li>
+                        <%--<li><a href="">Hot-Line</a></li>--%>
+                    </ul>
+                    <h3>
+                        Member Links</h3>
+                    <ul class="menu">
+                        <%-- <li><a href="">Blog</a></li>--%>
+                        <li><a href="/district64/event/eventrequest.aspx">Event Request</a></li>
+                        <li><a href="/district64/schedule/meetingrequestinit.aspx">Schedule Change Request</a></li>
+                        <li><a href="/district64/underconstuction.htm">District Meeting</a></li>
+                        <li><a href="/district64/underconstuction.htm">Archive Documents</a></li>
+                        <%--<li><a href="">Member Information</a></li>--%>
+                    </ul>
+                    <h3>
+                        Admin Links</h3>
+                    <ul class="menu">
+                        <li><a href="/district64/event/eventeditlist.aspx">Approve Events</a></li>
+                        <li><a href="/district64/schedule/meetingrequestapprovelist.aspx">Approve Meeting</a></li>
+                    </ul>
+                    <br />
+                    <h3>
+                        Login</h3>
+                    <asp:MultiView ID="MultiViewlogin" runat="server" OnActiveViewChanged="MultiViewlogin_ActiveViewChanged">
+                        <asp:View ID="ViewLogin" runat="server">
+                            <asp:Label ID="LabelLoginMessage" runat="server" Text="" ForeColor="Red" Font-Size="Small"></asp:Label><br />
+                            <asp:TextBox ID="TextBoxUserName" runat="server" Height="24px" Width="124px"></asp:TextBox><br />
+                            <asp:TextBox ID="TextBoxPassword" runat="server" TextMode="Password" Height="26px"
+                                Width="124px"></asp:TextBox>
+                            <br />
+                            <asp:Button ID="ButtonLogin" runat="server" Text="Go" Height="20" OnClick="ButtonLogin_Click" />
+                        </asp:View>
+                        <asp:View ID="ViewLogOutUserName" runat="server">
+                            <div class="username">
+                                <asp:Literal ID="LiteralUserName" runat="server"></asp:Literal><br /></div><br />
+                                <asp:LinkButton ID="LinkButton1" runat="server"  onclick="LinkButton1_Click">Logout</asp:LinkButton>   <br /><br />                             
+                            
+                        </asp:View>
+                    </asp:MultiView>
+                    <br />
+                </div>
+            </div>
+            <!-- Left column end -->
+            <div class="cleaner">
+                &nbsp;</div>
+        </div>
+        <!-- Page end -->
+        <div id="footer">
+            <div class="left-text">
+                Hot-Line Number 630 859-2444</div>
+            <p>
+                <a href="#top">Top</a>&uarr;</p>
+        </div>
+        <!-- Footer end -->
+    </div>
+    <!-- Wrapper end -->
+    <br />
+    <br />
+    <br />
+    <%--<p id="backlinks">
+        Website Designed by NIA Area 20 - District 64</p>--%>
+    </form>
+</body>
+</html>

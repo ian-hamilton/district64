@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<project name="District64Wcf" default="build-test">
+    <property name="MSBuildPath" value="MSBuild.exe"/>    
+    <property name="SolutionFile" value="District64Wcf.sln"/>
+    
+    <target name="build">
+        <exec program="${MSBuildPath}">
+                <arg line='"${SolutionFile}"' />
+                <arg value="/target:Rebuild" />
+                <arg value="/verbosity:normal" /> 
+                <arg value="/nologo" />
+        </exec>
+    </target>
+    
+    <target name="test" depends="build">
+    		<exec  program="nunit-console.exe">
+			 <arg value="src/Domain.Test/bin/Debug/District64Wcf.Domain.Test.dll" />
+			 <arg value="src/DataAccess.Test/bin/Debug/District64Wcf.DataAccess.Test.dll" />
+			 <arg value="src/InternalService.Test/bin/Debug/District64Wcf.InternalService.Test.dll" />
+	            	 <arg value="/xml=Project1.Tests-results.xml" />
+	        </exec>
+    </target>
+    
+     <target name="build-test" depends="build, test">
+    </target>
+    
+    <target name="publish" description="Compiles/Builds the Solution">
+	    <echo message="Building..." />
+	    <property name="build.configuration" value="Release" />
+	    <property name="staging.output" value="..\..\district64wcf-publish\"/>
+
+	    <exec program="${MSBuildPath}" failonerror="true" verbose="true">
+		<arg value="/p:Configuration=${build.configuration};OutputPath=${path::combine(staging.output,'bin')}" />
+		<arg value="/p:UseWPP_CopyWebApplication=True" />
+		<arg value="/p:PipelineDependsOnBuild=False" />
+		<arg value="/p:WebProjectOutputDir=${staging.output}\" />
+		<arg value="/t:Rebuild" />
+		<arg value="/nologo" />
+	    </exec>
+	    <echo message="Building finished..." />
+    </target>
+    
+</project>

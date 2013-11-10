@@ -1,0 +1,545 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DistrictModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="DistrictModelStoreContainer">
+          <EntitySet Name="access_level" EntityType="DistrictModel.Store.access_level" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="app_user" EntityType="DistrictModel.Store.app_user" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="district_event" EntityType="DistrictModel.Store.district_event" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="file_repository" EntityType="DistrictModel.Store.file_repository" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="meeting" EntityType="DistrictModel.Store.meeting" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="meeting_change_request" EntityType="DistrictModel.Store.meeting_change_request" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="page_access" EntityType="DistrictModel.Store.page_access" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <AssociationSet Name="fk_district_event_01" Association="DistrictModel.Store.fk_district_event_01">
+            <End Role="file_repository" EntitySet="file_repository" />
+            <End Role="district_event" EntitySet="district_event" />
+          </AssociationSet>
+          <AssociationSet Name="fk_page_access_01" Association="DistrictModel.Store.fk_page_access_01">
+            <End Role="access_level" EntitySet="access_level" />
+            <End Role="page_access" EntitySet="page_access" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_1" Association="DistrictModel.Store.fk_user_1">
+            <End Role="access_level" EntitySet="access_level" />
+            <End Role="app_user" EntitySet="app_user" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="access_level">
+          <Key>
+            <PropertyRef Name="access_level_id" />
+          </Key>
+          <Property Name="access_level_id" Type="int" Nullable="false" />
+          <Property Name="access_level_desc" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="app_user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="app_user_name" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="user_first_name" Type="varchar" MaxLength="50" />
+          <Property Name="user_last_name" Type="varchar" MaxLength="50" />
+          <Property Name="access_level_id" Type="int" Nullable="false" />
+          <Property Name="email_address" Type="varchar" MaxLength="100" />
+          <Property Name="status_flag" Type="int" Nullable="false" />
+          <Property Name="row_created" Type="datetime" Nullable="false" />
+          <Property Name="row_updated" Type="datetime" Nullable="false" />
+          <Property Name="row_created_by_user_id" Type="int" Nullable="false" />
+          <Property Name="row_updated_by_user_id" Type="int" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="district_event">
+          <Key>
+            <PropertyRef Name="event_id" />
+          </Key>
+          <Property Name="event_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="event_subject" Type="varchar" MaxLength="100" />
+          <Property Name="event_desc" Type="varchar(max)" />
+          <Property Name="event_date" Type="datetime" Nullable="false" />
+          <!--<Property Name="event_begin_date" Type="datetime" Nullable="false" />-->
+          <!--<Property Name="event_stop_date" Type="datetime" Nullable="false" />-->
+          <Property Name="event_location" Type="varchar" MaxLength="100" />
+          <Property Name="event_address" Type="varchar" MaxLength="100" />
+          <Property Name="event_city" Type="varchar" MaxLength="100" />
+          <Property Name="event_state" Type="varchar" MaxLength="2" />
+          <Property Name="event_zip" Type="varchar" MaxLength="5" />
+          <Property Name="submitted_by" Type="varchar" MaxLength="100" />
+          <Property Name="submitted_by_phone" Type="varchar" MaxLength="10" />
+          <Property Name="submitted_by_email" Type="varchar" MaxLength="100" />
+          <Property Name="approved_flag" Type="int" Nullable="false" />
+          <Property Name="row_approved" Type="datetime" />
+          <Property Name="row_approved_by_user_id" Type="bigint" />
+          <Property Name="status_flag" Type="int" Nullable="false" />
+          <Property Name="row_created" Type="datetime" Nullable="false" />
+          <Property Name="row_updated" Type="datetime" Nullable="false" />
+          <Property Name="row_created_by_user_id" Type="bigint" Nullable="false" />
+          <Property Name="row_updated_by_user_id" Type="bigint" Nullable="false" />
+          <Property Name="file_repository_id" Type="bigint" />
+        </EntityType>
+        <EntityType Name="file_repository">
+          <Key>
+            <PropertyRef Name="file_repository_id" />
+          </Key>
+          <Property Name="file_repository_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="file_blob" Type="varbinary(max)" />
+          <Property Name="status_flag" Type="int" Nullable="false" />
+          <Property Name="row_created" Type="datetime" Nullable="false" />
+          <Property Name="row_updated" Type="datetime" Nullable="false" />
+          <Property Name="row_created_by_user_id" Type="bigint" Nullable="false" />
+          <Property Name="row_updated_by_user_id" Type="bigint" Nullable="false" />
+          <Property Name="file_name" Type="varchar" Nullable="false" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="meeting">
+          <Key>
+            <PropertyRef Name="meeting_id" />
+          </Key>
+          <Property Name="meeting_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="day_of_week" Type="int" Nullable="false" />
+          <Property Name="time_of_day" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="modulation" Type="varchar" Nullable="false" MaxLength="2" />
+          <Property Name="military_time" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="meeting_type" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="meeting_name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="facility" Type="varchar" MaxLength="100" />
+          <Property Name="note" Type="varchar" MaxLength="100" />
+          <Property Name="address" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="city" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="state" Type="varchar" MaxLength="2" />
+          <Property Name="zip" Type="varchar" MaxLength="9" />
+          <Property Name="district_number" Type="int" />
+          <Property Name="non_smoking_flag" Type="int" Nullable="false" />
+          <Property Name="handicapped_flag" Type="int" Nullable="false" />
+          <Property Name="womens_flag" Type="int" Nullable="false" />
+          <Property Name="status_flag" Type="int" Nullable="false" />
+          <Property Name="row_created" Type="datetime" Nullable="false" />
+          <Property Name="row_updated" Type="datetime" Nullable="false" />
+          <Property Name="row_created_by_user_id" Type="int" Nullable="false" />
+          <Property Name="row_updated_by_user_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="meeting_change_request">
+          <Key>
+            <PropertyRef Name="meeting_change_request_id" />
+          </Key>
+          <Property Name="meeting_change_request_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="meeting_id" Type="bigint" />
+          <Property Name="day_of_week" Type="int" Nullable="false" />
+          <Property Name="time_of_day" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="modulation" Type="varchar" Nullable="false" MaxLength="2" />
+          <Property Name="military_time" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="meeting_type" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="meeting_name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="facility" Type="varchar" MaxLength="100" />
+          <Property Name="note" Type="varchar" MaxLength="100" />
+          <Property Name="address" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="city" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="state" Type="varchar" MaxLength="2" />
+          <Property Name="zip" Type="varchar" MaxLength="9" />
+          <Property Name="district_number" Type="int" />
+          <Property Name="non_smoking_flag" Type="int" Nullable="false" />
+          <Property Name="handicapped_flag" Type="int" Nullable="false" />
+          <Property Name="womens_flag" Type="int" Nullable="false" />
+          <Property Name="requestor" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="requestor_phone" Type="varchar" MaxLength="10" />
+          <Property Name="requestor_email" Type="varchar" MaxLength="100" />
+          <Property Name="gsr_flag" Type="int" Nullable="false" />
+          <Property Name="status_flag" Type="int" Nullable="false" />
+          <Property Name="row_created" Type="datetime" Nullable="false" />
+          <Property Name="row_updated" Type="datetime" Nullable="false" />
+          <Property Name="row_created_by_user_id" Type="int" Nullable="false" />
+          <Property Name="row_updated_by_user_id" Type="int" Nullable="false" />
+          <Property Name="approved_flag" Type="int" Nullable="false" />
+          <Property Name="approved" Type="datetime" />
+        </EntityType>
+        <EntityType Name="page_access">
+          <Key>
+            <PropertyRef Name="page_access_id" />
+          </Key>
+          <Property Name="page_access_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="page" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="min_access_level" Type="int" />
+        </EntityType>
+        <Association Name="fk_district_event_01">
+          <End Role="file_repository" Type="DistrictModel.Store.file_repository" Multiplicity="0..1" />
+          <End Role="district_event" Type="DistrictModel.Store.district_event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="file_repository">
+              <PropertyRef Name="file_repository_id" />
+            </Principal>
+            <Dependent Role="district_event">
+              <PropertyRef Name="file_repository_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_page_access_01">
+          <End Role="access_level" Type="DistrictModel.Store.access_level" Multiplicity="0..1" />
+          <End Role="page_access" Type="DistrictModel.Store.page_access" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="access_level">
+              <PropertyRef Name="access_level_id" />
+            </Principal>
+            <Dependent Role="page_access">
+              <PropertyRef Name="min_access_level" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_1">
+          <End Role="access_level" Type="DistrictModel.Store.access_level" Multiplicity="1" />
+          <End Role="app_user" Type="DistrictModel.Store.app_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="access_level">
+              <PropertyRef Name="access_level_id" />
+            </Principal>
+            <Dependent Role="app_user">
+              <PropertyRef Name="access_level_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DistrictModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="DistrictEntities">
+          <EntitySet Name="access_level" EntityType="DistrictModel.access_level" />
+          <EntitySet Name="app_user" EntityType="DistrictModel.app_user" />
+          <EntitySet Name="meeting" EntityType="DistrictModel.meeting" />
+          <AssociationSet Name="fk_user_1" Association="DistrictModel.fk_user_1">
+            <End Role="access_level" EntitySet="access_level" />
+            <End Role="app_user" EntitySet="app_user" />
+          </AssociationSet>
+          <EntitySet Name="district_event" EntityType="DistrictModel.district_event" />
+          <EntitySet Name="page_access" EntityType="DistrictModel.page_access" />
+          <AssociationSet Name="fk_page_access_01" Association="DistrictModel.fk_page_access_01">
+            <End Role="access_level" EntitySet="access_level" />
+            <End Role="page_access" EntitySet="page_access" /></AssociationSet>
+          <EntitySet Name="meeting_change_request" EntityType="DistrictModel.meeting_change_request" />
+          <EntitySet Name="file_repository" EntityType="DistrictModel.file_repository" />
+          <AssociationSet Name="fk_district_event_01" Association="DistrictModel.fk_district_event_01">
+            <End Role="file_repository" EntitySet="file_repository" />
+            <End Role="district_event" EntitySet="district_event" /></AssociationSet></EntityContainer>
+        <EntityType Name="access_level">
+          <Key>
+            <PropertyRef Name="access_level_id" />
+          </Key>
+          <Property Name="access_level_id" Type="Int32" Nullable="false" />
+          <Property Name="access_level_desc" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="app_user" Relationship="DistrictModel.fk_user_1" FromRole="access_level" ToRole="app_user" />
+          <NavigationProperty Name="page_access" Relationship="DistrictModel.fk_page_access_01" FromRole="access_level" ToRole="page_access" /></EntityType>
+        <EntityType Name="app_user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int64" Nullable="false" />
+          <Property Name="app_user_name" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="user_first_name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="user_last_name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="status_flag" Type="Int32" Nullable="false" />
+          <Property Name="row_created" Type="DateTime" Nullable="false" />
+          <Property Name="row_updated" Type="DateTime" Nullable="false" />
+          <Property Name="row_created_by_user_id" Type="Int32" Nullable="false" />
+          <Property Name="row_updated_by_user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="access_level" Relationship="DistrictModel.fk_user_1" FromRole="app_user" ToRole="access_level" />
+          <Property Name="email_address" Type="String" Nullable="true" />
+          <Property Name="password" Type="String" Nullable="true" /></EntityType>
+        <EntityType Name="meeting">
+          <Key>
+            <PropertyRef Name="meeting_id" />
+          </Key>
+          <Property Name="meeting_id" Type="Int64" Nullable="false" />
+          <Property Name="day_of_week" Type="Int32" Nullable="false" />
+          <Property Name="time_of_day" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="modulation" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="false" />
+          <Property Name="meeting_type" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="meeting_name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="facility" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="note" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="state" Type="String" MaxLength="2" Unicode="false" FixedLength="false" />
+          <Property Name="zip" Type="String" MaxLength="9" Unicode="false" FixedLength="false" />
+          <Property Name="district_number" Type="Int32" />
+          <Property Name="non_smoking_flag" Type="Int32" Nullable="false" />
+          <Property Name="handicapped_flag" Type="Int32" Nullable="false" />
+          <Property Name="womens_flag" Type="Int32" Nullable="false" />
+          <Property Name="status_flag" Type="Int32" Nullable="false" />
+          <Property Name="row_created" Type="DateTime" Nullable="false" />
+          <Property Name="row_updated" Type="DateTime" Nullable="false" />
+          <Property Name="row_created_by_user_id" Type="Int32" Nullable="false" />
+          <Property Name="row_updated_by_user_id" Type="Int32" Nullable="false" />
+          <Property Name="military_time" Type="String" Nullable="false" /></EntityType>
+        <Association Name="fk_user_1">
+          <End Role="access_level" Type="DistrictModel.access_level" Multiplicity="1" />
+          <End Role="app_user" Type="DistrictModel.app_user" Multiplicity="*" />
+        </Association>
+        <EntityType Name="district_event">
+          <Key>
+            <PropertyRef Name="event_id" /></Key>
+          <Property Name="event_id" Type="Int64" Nullable="false" />
+          <Property Name="event_subject" Type="String" Nullable="true" />
+          <Property Name="event_desc" Type="String" Nullable="true" />
+          <Property Name="event_date" Type="DateTime" Nullable="false" />
+          <!--<Property Name="event_begin_date" Type="DateTime" Nullable="false" />-->
+          <!--<Property Name="event_stop_date" Type="DateTime" Nullable="false" /> -->
+          <Property Name="event_location" Type="String" Nullable="true" />
+          <Property Name="event_address" Type="String" Nullable="true" />
+          <Property Name="event_city" Type="String" Nullable="true" />
+          <Property Name="event_state" Type="String" Nullable="true" />
+          <Property Name="event_zip" Type="String" Nullable="true" />
+          <Property Name="submitted_by" Type="String" Nullable="true" />
+          <Property Name="submitted_by_phone" Type="String" Nullable="true" />
+          <Property Name="submitted_by_email" Type="String" Nullable="true" />
+          <Property Name="approved_flag" Type="Int32" Nullable="false" />
+          <Property Name="row_approved" Type="DateTime" Nullable="true" />
+          <Property Name="row_approved_by_user_id" Type="Int64" Nullable="true" />
+          <Property Name="status_flag" Type="Int32" Nullable="false" />
+          <Property Name="row_created" Type="DateTime" Nullable="false" />
+          <Property Name="row_updated" Type="DateTime" Nullable="false" />
+          <Property Name="row_created_by_user_id" Type="Int64" Nullable="false" />
+          <Property Name="row_updated_by_user_id" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="file_repository" Relationship="DistrictModel.fk_district_event_01" FromRole="district_event" ToRole="file_repository" /></EntityType>
+        <EntityType Name="page_access">
+          <Key>
+            <PropertyRef Name="page_access_id" /></Key>
+          <Property Name="page_access_id" Type="Int64" Nullable="false" />
+          <Property Name="page" Type="String" Nullable="false" />
+          <NavigationProperty Name="access_level" Relationship="DistrictModel.fk_page_access_01" FromRole="page_access" ToRole="access_level" /></EntityType>
+        <Association Name="fk_page_access_01">
+          <End Type="DistrictModel.access_level" Role="access_level" Multiplicity="0..1" />
+          <End Type="DistrictModel.page_access" Role="page_access" Multiplicity="*" /></Association>
+        <EntityType Name="meeting_change_request">
+          <Key>
+            <PropertyRef Name="meeting_change_request_id" /></Key>
+          <Property Name="meeting_change_request_id" Type="Int64" Nullable="false" />
+          <Property Name="meeting_id" Type="Int64" Nullable="true" />
+          <Property Name="day_of_week" Type="Int32" Nullable="false" />
+          <Property Name="time_of_day" Type="String" Nullable="false" />
+          <Property Name="modulation" Type="String" Nullable="false" />
+          <Property Name="military_time" Type="String" Nullable="false" />
+          <Property Name="meeting_type" Type="String" Nullable="false" />
+          <Property Name="meeting_name" Type="String" Nullable="false" />
+          <Property Name="facility" Type="String" Nullable="true" />
+          <Property Name="note" Type="String" Nullable="true" />
+          <Property Name="address" Type="String" Nullable="false" />
+          <Property Name="city" Type="String" Nullable="false" />
+          <Property Name="state" Type="String" Nullable="true" />
+          <Property Name="zip" Type="String" Nullable="true" />
+          <Property Name="district_number" Type="Int32" Nullable="true" />
+          <Property Name="non_smoking_flag" Type="Int32" Nullable="false" />
+          <Property Name="handicapped_flag" Type="Int32" Nullable="false" />
+          <Property Name="womens_flag" Type="Int32" Nullable="false" />
+          <Property Name="requestor" Type="String" Nullable="false" />
+          <Property Name="requestor_phone" Type="String" Nullable="true" />
+          <Property Name="requestor_email" Type="String" Nullable="true" />
+          <Property Name="gsr_flag" Type="Int32" Nullable="false" />
+          <Property Name="status_flag" Type="Int32" Nullable="false" />
+          <Property Name="row_created" Type="DateTime" Nullable="false" />
+          <Property Name="row_updated" Type="DateTime" Nullable="false" />
+          <Property Name="row_created_by_user_id" Type="Int32" Nullable="false" />
+          <Property Name="row_updated_by_user_id" Type="Int32" Nullable="false" />
+          <Property Name="approved_flag" Type="Int32" Nullable="false" />
+          <Property Name="approved" Type="DateTime" Nullable="true" /></EntityType>
+        <EntityType Name="file_repository">
+          <Key>
+            <PropertyRef Name="file_repository_id" /></Key>
+          <Property Name="file_repository_id" Type="Int64" Nullable="false" />
+          <Property Name="file_blob" Type="Binary" Nullable="true" />
+          <Property Name="status_flag" Type="Int32" Nullable="false" />
+          <Property Name="row_created" Type="DateTime" Nullable="false" />
+          <Property Name="row_updated" Type="DateTime" Nullable="false" />
+          <Property Name="row_created_by_user_id" Type="Int64" Nullable="false" />
+          <Property Name="row_updated_by_user_id" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="district_event" Relationship="DistrictModel.fk_district_event_01" FromRole="file_repository" ToRole="district_event" />
+          <Property Name="file_name" Type="String" Nullable="false" /></EntityType>
+        <Association Name="fk_district_event_01">
+          <End Type="DistrictModel.file_repository" Role="file_repository" Multiplicity="0..1" />
+          <End Type="DistrictModel.district_event" Role="district_event" Multiplicity="*" /></Association></Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DistrictModelStoreContainer" CdmEntityContainer="DistrictEntities">
+          <EntitySetMapping Name="access_level">
+            <EntityTypeMapping TypeName="IsTypeOf(DistrictModel.access_level)">
+              <MappingFragment StoreEntitySet="access_level">
+                <ScalarProperty Name="access_level_id" ColumnName="access_level_id" />
+                <ScalarProperty Name="access_level_desc" ColumnName="access_level_desc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="app_user">
+            <EntityTypeMapping TypeName="IsTypeOf(DistrictModel.app_user)">
+              <MappingFragment StoreEntitySet="app_user">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="app_user_name" ColumnName="app_user_name" />
+                <ScalarProperty Name="user_first_name" ColumnName="user_first_name" />
+                <ScalarProperty Name="user_last_name" ColumnName="user_last_name" />
+                <ScalarProperty Name="status_flag" ColumnName="status_flag" />
+                <ScalarProperty Name="row_created" ColumnName="row_created" />
+                <ScalarProperty Name="row_updated" ColumnName="row_updated" />
+                <ScalarProperty Name="row_created_by_user_id" ColumnName="row_created_by_user_id" />
+                <ScalarProperty Name="row_updated_by_user_id" ColumnName="row_updated_by_user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="meeting">
+            <EntityTypeMapping TypeName="IsTypeOf(DistrictModel.meeting)">
+              <MappingFragment StoreEntitySet="meeting">
+                <ScalarProperty Name="military_time" ColumnName="military_time" />
+                <ScalarProperty Name="meeting_id" ColumnName="meeting_id" />
+                <ScalarProperty Name="day_of_week" ColumnName="day_of_week" />
+                <ScalarProperty Name="time_of_day" ColumnName="time_of_day" />
+                <ScalarProperty Name="modulation" ColumnName="modulation" />
+                <ScalarProperty Name="meeting_type" ColumnName="meeting_type" />
+                <ScalarProperty Name="meeting_name" ColumnName="meeting_name" />
+                <ScalarProperty Name="facility" ColumnName="facility" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="district_number" ColumnName="district_number" />
+                <ScalarProperty Name="non_smoking_flag" ColumnName="non_smoking_flag" />
+                <ScalarProperty Name="handicapped_flag" ColumnName="handicapped_flag" />
+                <ScalarProperty Name="womens_flag" ColumnName="womens_flag" />
+                <ScalarProperty Name="status_flag" ColumnName="status_flag" />
+                <ScalarProperty Name="row_created" ColumnName="row_created" />
+                <ScalarProperty Name="row_updated" ColumnName="row_updated" />
+                <ScalarProperty Name="row_created_by_user_id" ColumnName="row_created_by_user_id" />
+                <ScalarProperty Name="row_updated_by_user_id" ColumnName="row_updated_by_user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="fk_user_1" TypeName="DistrictModel.fk_user_1" StoreEntitySet="app_user">
+            <EndProperty Name="access_level">
+              <ScalarProperty Name="access_level_id" ColumnName="access_level_id" />
+            </EndProperty>
+            <EndProperty Name="app_user">
+              <ScalarProperty Name="user_id" ColumnName="user_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="district_event">
+            <EntityTypeMapping TypeName="IsTypeOf(DistrictModel.district_event)">
+              <MappingFragment StoreEntitySet="district_event">
+                <ScalarProperty Name="row_updated_by_user_id" ColumnName="row_updated_by_user_id" />
+                <ScalarProperty Name="row_created_by_user_id" ColumnName="row_created_by_user_id" />
+                <ScalarProperty Name="row_updated" ColumnName="row_updated" />
+                <ScalarProperty Name="row_created" ColumnName="row_created" />
+                <ScalarProperty Name="status_flag" ColumnName="status_flag" />
+                <ScalarProperty Name="row_approved_by_user_id" ColumnName="row_approved_by_user_id" />
+                <ScalarProperty Name="row_approved" ColumnName="row_approved" />
+                <ScalarProperty Name="approved_flag" ColumnName="approved_flag" />
+                <ScalarProperty Name="submitted_by_email" ColumnName="submitted_by_email" />
+                <ScalarProperty Name="submitted_by_phone" ColumnName="submitted_by_phone" />
+                <ScalarProperty Name="submitted_by" ColumnName="submitted_by" />
+                <ScalarProperty Name="event_zip" ColumnName="event_zip" />
+                <ScalarProperty Name="event_state" ColumnName="event_state" />
+                <ScalarProperty Name="event_city" ColumnName="event_city" />
+                <ScalarProperty Name="event_address" ColumnName="event_address" />
+                <ScalarProperty Name="event_location" ColumnName="event_location" />
+                <ScalarProperty Name="event_date" ColumnName="event_date" />
+                <!--<ScalarProperty Name="event_begin_date" ColumnName="event_begin_date" />-->
+                <!--<ScalarProperty Name="event_stop_date" ColumnName="event_stop_date" />-->
+                <ScalarProperty Name="event_desc" ColumnName="event_desc" />
+                <ScalarProperty Name="event_subject" ColumnName="event_subject" />
+                <ScalarProperty Name="event_id" ColumnName="event_id" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="page_access">
+            <EntityTypeMapping TypeName="IsTypeOf(DistrictModel.page_access)">
+              <MappingFragment StoreEntitySet="page_access">
+                <ScalarProperty Name="page" ColumnName="page" />
+                <ScalarProperty Name="page_access_id" ColumnName="page_access_id" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <AssociationSetMapping Name="fk_page_access_01" TypeName="DistrictModel.fk_page_access_01" StoreEntitySet="page_access">
+            <EndProperty Name="page_access">
+              <ScalarProperty Name="page_access_id" ColumnName="page_access_id" /></EndProperty>
+            <EndProperty Name="access_level">
+              <ScalarProperty Name="access_level_id" ColumnName="min_access_level" /></EndProperty>
+            <Condition ColumnName="min_access_level" IsNull="false" /></AssociationSetMapping>
+          <EntitySetMapping Name="meeting_change_request">
+            <EntityTypeMapping TypeName="IsTypeOf(DistrictModel.meeting_change_request)">
+              <MappingFragment StoreEntitySet="meeting_change_request">
+                <ScalarProperty Name="approved" ColumnName="approved" />
+                <ScalarProperty Name="approved_flag" ColumnName="approved_flag" />
+                <ScalarProperty Name="row_updated_by_user_id" ColumnName="row_updated_by_user_id" />
+                <ScalarProperty Name="row_created_by_user_id" ColumnName="row_created_by_user_id" />
+                <ScalarProperty Name="row_updated" ColumnName="row_updated" />
+                <ScalarProperty Name="row_created" ColumnName="row_created" />
+                <ScalarProperty Name="status_flag" ColumnName="status_flag" />
+                <ScalarProperty Name="gsr_flag" ColumnName="gsr_flag" />
+                <ScalarProperty Name="requestor_email" ColumnName="requestor_email" />
+                <ScalarProperty Name="requestor_phone" ColumnName="requestor_phone" />
+                <ScalarProperty Name="requestor" ColumnName="requestor" />
+                <ScalarProperty Name="womens_flag" ColumnName="womens_flag" />
+                <ScalarProperty Name="handicapped_flag" ColumnName="handicapped_flag" />
+                <ScalarProperty Name="non_smoking_flag" ColumnName="non_smoking_flag" />
+                <ScalarProperty Name="district_number" ColumnName="district_number" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="facility" ColumnName="facility" />
+                <ScalarProperty Name="meeting_name" ColumnName="meeting_name" />
+                <ScalarProperty Name="meeting_type" ColumnName="meeting_type" />
+                <ScalarProperty Name="military_time" ColumnName="military_time" />
+                <ScalarProperty Name="modulation" ColumnName="modulation" />
+                <ScalarProperty Name="time_of_day" ColumnName="time_of_day" />
+                <ScalarProperty Name="day_of_week" ColumnName="day_of_week" />
+                <ScalarProperty Name="meeting_id" ColumnName="meeting_id" />
+                <ScalarProperty Name="meeting_change_request_id" ColumnName="meeting_change_request_id" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="file_repository">
+            <EntityTypeMapping TypeName="IsTypeOf(DistrictModel.file_repository)">
+              <MappingFragment StoreEntitySet="file_repository">
+                <ScalarProperty Name="file_name" ColumnName="file_name" />
+                <ScalarProperty Name="row_updated_by_user_id" ColumnName="row_updated_by_user_id" />
+                <ScalarProperty Name="row_created_by_user_id" ColumnName="row_created_by_user_id" />
+                <ScalarProperty Name="row_updated" ColumnName="row_updated" />
+                <ScalarProperty Name="row_created" ColumnName="row_created" />
+                <ScalarProperty Name="status_flag" ColumnName="status_flag" />
+                <ScalarProperty Name="file_blob" ColumnName="file_blob" />
+                <ScalarProperty Name="file_repository_id" ColumnName="file_repository_id" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <AssociationSetMapping Name="fk_district_event_01" TypeName="DistrictModel.fk_district_event_01" StoreEntitySet="district_event">
+            <EndProperty Name="district_event">
+              <ScalarProperty Name="event_id" ColumnName="event_id" /></EndProperty>
+            <EndProperty Name="file_repository">
+              <ScalarProperty Name="file_repository_id" ColumnName="file_repository_id" /></EndProperty>
+            <Condition ColumnName="file_repository_id" IsNull="false" /></AssociationSetMapping></EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer>
+    <edmx:Connection>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="District" xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+        <EntityTypeShape EntityType="DistrictModel.access_level" Width="1.5" PointX="0.75" PointY="1.625" Height="1.5956835937500002" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistrictModel.app_user" Width="1.5" PointX="3" PointY="1" Height="2.9417936197916665" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistrictModel.meeting" Width="1.5" PointX="5.125" PointY="1.375" Height="5.2494108072916656" IsExpanded="true" />
+        <AssociationConnector Association="DistrictModel.fk_user_1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.5189925130208328" />
+          <ConnectorPoint PointX="3" PointY="2.5189925130208328" /></AssociationConnector>
+        <EntityTypeShape EntityType="DistrictModel.district_event" Width="1.5" PointX="6.875" PointY="1.375" Height="4.3862109375" />
+        <EntityTypeShape EntityType="DistrictModel.page_access" Width="1.5" PointX="1.375" PointY="5" Height="1.4279589843749996" />
+        <AssociationConnector Association="DistrictModel.fk_page_access_01">
+          <ConnectorPoint PointX="1.8125" PointY="3.4129850260416661" />
+          <ConnectorPoint PointX="1.8125" PointY="5" />
+          </AssociationConnector>
+        <EntityTypeShape EntityType="DistrictModel.meeting_change_request" Width="1.5" PointX="8.625" PointY="1.375" Height="5.372294921875" />
+        <EntityTypeShape EntityType="DistrictModel.file_repository" Width="1.5" PointX="4.625" PointY="7.75" Height="2.5571907552083326" />
+        <AssociationConnector Association="DistrictModel.fk_district_event_01">
+          <ConnectorPoint PointX="6.125" PointY="8.8748478190104159" />
+          <ConnectorPoint PointX="7.625" PointY="8.8748478190104159" />
+          <ConnectorPoint PointX="7.625" PointY="5.7612109375" /></AssociationConnector></Diagram></edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

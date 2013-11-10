@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="District64.District64Wcf.Service.DistrictService" CodeBehind="DistrictService.svc.cs" %>
